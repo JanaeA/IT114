@@ -3,3 +3,4 @@ myprivatecreds.*
 *.log
 .idea/*
 
+/.metadata/
