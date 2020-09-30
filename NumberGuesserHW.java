@@ -13,6 +13,7 @@ public class NumberGuesserHW {
 	private int maxStrikes = 5;
 	private int number = 0;
 	private boolean isRunning = false;
+	private boolean restart = false;
 	final String saveFile = "numberGuesserSave.txt";
 
 	/***
@@ -52,6 +53,12 @@ public class NumberGuesserHW {
 		if (message.equalsIgnoreCase("quit")) {
 			System.out.println("Tired of playing? No problem, see you next time.");
 			isRunning = false;
+		}
+		if(message.equalsIgnoreCase("reset")){
+			System.out.println("You will now restart to Level 1. Please run the game again.");
+			level = 1;
+			saveLevel();
+			restart = true;
 		}
 	}
 
@@ -111,6 +118,18 @@ public class NumberGuesserHW {
 					level = _level;
 					break;
 				}
+				/* scanner.useLocale(Locale.US);  
+				 * if(reader.hasNext()){
+				 * _level = reader.nextInt();
+				 * }
+				 * if(reader.hasNext()){
+				 * _strikes = reader.nextInt()){
+				 * }
+				 * if(reader.hasNext()){
+				 * _number = reader.nextInt())
+				 * }
+				 * Attempt at trying to add more variables to save
+				 */
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -135,7 +154,7 @@ public class NumberGuesserHW {
 			while (input.hasNext()) {
 				String message = input.nextLine();
 				processCommands(message);
-				if (!isRunning) {
+				if (!isRunning || restart) {
 					break;
 				}
 				int guess = getGuess(message);
